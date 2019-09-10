@@ -47,10 +47,13 @@
   <ItemGroup>
     <Compile Include="APIResponseObjects\Asset.cs" />
     <Compile Include="APIResponseObjects\EntityNameListResponse.cs" />
+    <Compile Include="APIResponseObjects\RequestObject.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HornbillService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestObjects\GetRequest.cs" />
     <Compile Include="ServiceManager\Assets\AssetManager.cs" />
+    <Compile Include="ServiceManager\Requests\RequestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\espapi_dotnet\espapi_dotnet.csproj">
@@ -58,9 +61,7 @@
       <Name>espapi_dotnet</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ServiceManager\Requests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
