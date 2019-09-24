@@ -62,5 +62,21 @@ namespace Hornbill.ESPAPI.ServiceManager.Assets
             return null;
         }
 
+        public object GetAssetLinkedEntities(int assetId)
+        {
+            _service.HornbillClient.AddParam("assetId", assetId);
+            _service.HornbillClient.AddParam("language", "english");
+            _service.HornbillClient.Invoke("apps/com.hornbill.servicemanager/Asset", "loadLinkedEntities");
+            var t = Helper.GetParamsNode(_service.HornbillClient.GetResponseXML());
+
+            if (t != null && t.Count > 0)
+            {
+                string json = t[0].InnerText;
+                return JsonConvert.DeserializeObject(json);
+            }
+
+            return null;
+        }
+
     }
 }

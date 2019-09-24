@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 public class RequestObject
 {
@@ -40,6 +41,12 @@ public class RequestObject
 
     [JsonProperty("h_closure_category")]
     public string ClosureCategory { get; set; }
+
+    public DateTime DateLogged { get; set; }
+
+    public DateTime DateResolved { get; set; }
+
+    public DateTime DateClosed { get; set; }
 }
 
 
@@ -47,8 +54,6 @@ public class RequestObject
 //"h_fk_user_id": "JSmith",
 //  "h_ownerid": "MPython",
 //  "h_status": "status.closed",
-//  "h_datelogged": {"@raw": "2018-08-02 11:47:34",},
-//  "h_dateresolved": {"@raw": "2019-04-15 13:29:00",},
 //  "h_dateclosed": {"@raw": "2019-04-16 13:30:23",},
 //  "h_fk_team_id": "organisation/HardwareTeam/",
 //  "h_datelastmodified": {"@raw": "2019-04-16 13:30:23"},

@@ -54,8 +54,9 @@
     <Compile Include="RequestObjects\GetRequest.cs" />
     <Compile Include="ServiceManager\Assets\AssetManager.cs" />
     <Compile Include="ServiceManager\Requests\RequestManager.cs" />
+    <Compile Include="ServiceManager\ServicesManager.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ProjectReference Include="..\espapi_dotnet\espapi_dotnet.csproj">
       <Project>{f41f8bb9-c355-40db-abaa-3f7b2134d0b5}</Project>
       <Name>espapi_dotnet</Name>
@@ -66,4 +67,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- BEGIN MERGE ALL TO 1 DLL -->
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Compile Include="..\espapi_dotnet\**\*.cs" Exclude="..\espapi_dotnet\Properties\AssemblyInfo.cs;&#xD;&#xA;                    ..\espapi_dotnet\obj\**;&#xD;&#xA;                    ..\espapi_dotnet\bin\**;&#xD;&#xA;					..\espapi_dotnet\Properties\VersionInfo.cs">
+      <Link>espapi_dotnet\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <Visible>false</Visible>
+    </Compile>
+  </ItemGroup>
+  <!-- END MERGE ALL TO 1 DLL -->
 </Project>

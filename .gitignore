@@ -14,3 +14,7 @@
 /EspApiLib/Hornbill.ESPAPI/bin/Debug
 /EspApiLib/Hornbill.ESPAPI/obj/Debug
 /EspApiLib/packages/Newtonsoft.Json.12.0.2
+/EspApiLib/Hornbill.ESPAPI/bin/Release
+/EspApiLib/Hornbill.ESPAPI/obj/Release
+/EspApiLib/test_espapi_dotnet/bin/Release
+/EspApiLib/espapi_dotnet/bin/Release/espapi_dotnet.pdb

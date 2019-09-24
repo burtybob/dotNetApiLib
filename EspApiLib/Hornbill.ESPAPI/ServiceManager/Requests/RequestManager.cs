@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Hornbill.ESPAPI.ServiceManager.Requests
 {
@@ -18,11 +19,11 @@ namespace Hornbill.ESPAPI.ServiceManager.Requests
         }
 
         /// <summary>
-        /// Gets all requests in the last maxDays days
+        /// Gets all requests closed in the last maxDays days
         /// </summary>
         /// <param name="maxDays">Maximum number of days to look back</param>
         /// <returns></returns>
-        public List<RequestObject> GetRequests(int maxDays = 180)
+        public List<RequestObject> GetClosedRequests(int maxDays = 180)
         {
             int total = 0;
             int limit = 1000;
@@ -31,7 +32,7 @@ namespace Hornbill.ESPAPI.ServiceManager.Requests
 
             while (totalCount > total || totalCount == -1)
             {
-                _service.HornbillClient.AddParam("closedAfter", "2019-01-01");
+                //_service.HornbillClient.AddParam("closedAfter", "2019-01-01");
                 _service.HornbillClient.AddParam("closedLastXDays", maxDays);
                 _service.HornbillClient.AddParam("rowstart", total);
                 _service.HornbillClient.AddParam("limit", limit);
@@ -40,7 +41,22 @@ namespace Hornbill.ESPAPI.ServiceManager.Requests
                 totalCount = int.Parse(res1[0].SelectNodes("count")[0].InnerText);
 
                 var r4 = JsonConvert.DeserializeObject<JObject>(res1[0].SelectSingleNode("requests").InnerText).SelectToken("row");
-                _rtnCol.AddRange(r4.ToObject<List<RequestObject>>());
+                var r5 = r4.ToObject<List<RequestObject>>();
+
+                // Process each request
+                foreach (RequestObject ro in r5)
+                {
+                    JToken t1 = r4.FirstOrDefault(f => f.First.First.ToObject<string>() == ro.RequestID);
+                    ro.DateLogged = t1.SelectToken("h_datelogged.@raw").ToObject<DateTime>();
+
+                    JToken _resDateRaw = t1.SelectToken("h_dateresolved.@raw");
+                    if (_resDateRaw != null)
+                        ro.DateResolved = _resDateRaw.ToObject<DateTime>();
+
+                    ro.DateClosed = t1.SelectToken("h_dateclosed.@raw").ToObject<DateTime>();
+
+                    _rtnCol.Add(ro);
+                }
 
                 total += limit;
             }
