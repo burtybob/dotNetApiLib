@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity.cs" />
     <Compile Include="APIResponseObjects\Asset.cs" />
     <Compile Include="APIResponseObjects\EntityNameListResponse.cs" />
     <Compile Include="APIResponseObjects\RequestObject.cs" />

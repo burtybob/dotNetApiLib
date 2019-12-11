@@ -47,6 +47,9 @@ public class RequestObject
     public DateTime DateResolved { get; set; }
 
     public DateTime DateClosed { get; set; }
+
+    [JsonProperty("h_sub_status")]
+    public string SubStatus { get; set; }
 }
 
 
